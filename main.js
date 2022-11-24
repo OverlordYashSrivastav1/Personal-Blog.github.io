@@ -64,9 +64,9 @@ function resize(){
 window,addEventListener('resize',resize.bind());
 resize()
 
-//loading bar
+//loading Room
 
-function loadGLTF() {
+function Room() {
   const Gltfloader = new GLTFLoader();
   
   
@@ -81,10 +81,21 @@ function loadGLTF() {
     }
   )
 }
-loadGLTF()
+Room()
 
-// //function to output room
+function Stars(){
+  const geometry = new THREE.SphereGeometry(0.25, 24, 24);
+  const material = new THREE.MeshStandardMaterial({color: 0xffffff})
+  const star = new THREE.Mesh(geometry, material);
 
-// function RoomOP(){
-//   renderer.render(scene,camera)
-// }
+  const [x,y,z] = Array(3).fill().map(() => THREE.MathUtils.randFloatSpread(100));
+
+  star.position.set(x,y,z);
+  scene.add(star)
+}
+Array(200).fill().forEach(Stars)
+
+//set background
+
+const spacebg = new THREE.TextureLoader().load('assets/space1.jpg');
+scene.background = spacebg;

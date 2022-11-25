@@ -13,7 +13,7 @@ const renderer = new THREE.WebGLRenderer({
 
 renderer.setPixelRatio(window.devicePixelRatio);
 renderer.setSize(window.innerWidth, window.innerHeight)
-camera.position.setZ(30);
+camera.position.setZ(100);
 
 renderer.render(scene,camera);
 
@@ -21,6 +21,7 @@ renderer.render(scene,camera);
 const geometry = new THREE.SphereGeometry(15,22,10)
 const material = new THREE.MeshStandardMaterial({color:0xFF6347})
 const torus = new THREE.Mesh(geometry, material)
+torus.position.set(0,0,-40)
 
 scene.add(torus)
 
@@ -39,6 +40,7 @@ const controls = new OrbitControls(camera, renderer.domElement);
 function animate() {
   //for sun
   requestAnimationFrame(animate);
+  
   torus.rotation.x += 0.01;
   torus.rotation.y += 0.005;
   torus.rotation.z += 0.01;
@@ -83,6 +85,7 @@ function Room() {
 }
 Room()
 
+//for stars
 function Stars(){
   const geometry = new THREE.SphereGeometry(0.25, 24, 24);
   const material = new THREE.MeshStandardMaterial({color: 0xffffff})
@@ -99,3 +102,22 @@ Array(200).fill().forEach(Stars)
 
 const spacebg = new THREE.TextureLoader().load('assets/space1.jpg');
 scene.background = spacebg;
+
+//set camera tracks
+
+function moveCamera(){
+  const t = document.body.getBoundingClientRect().top;
+  camera.position.z=t* -0.002;
+  camera.position.x=t* -0.01;
+  camera.position.y=t* -0.01;
+
+}
+document.body.onscroll = moveCamera
+
+// //botton call
+// let click = document.querySelector(".main");
+// function botton(){
+//   click.style.display= "block"
+
+    
+// }
